@@ -145,11 +145,12 @@ public class ICloudAccountBridgeHandler extends BaseBridgeHandler {
             String json = iCloudDeviceInformationCache.getValue();
             logger.trace("json: {}", json);
 
-            if (json == null) {
+            ICloudAccountDataResponse iCloudData = deviceInformationParser.parse(json);
+
+            if (iCloudData == null) {
                 return;
             }
 
-            ICloudAccountDataResponse iCloudData = deviceInformationParser.parse(json);
             try {
                 int statusCode = Integer.parseUnsignedInt(iCloudData.getICloudAccountStatusCode());
                 if (statusCode == 200) {
